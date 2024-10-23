@@ -1,0 +1,44 @@
+.ProductPage {
+	display: flex;
+	width: 100%;
+	min-height: 100vh;
+	padding: 20px;
+
+	.ImageContainer {
+		flex-basis: 50%;
+		text-align: center;
+		align-content: center;
+
+		img {
+			width: unset;
+			height: 70vh;
+		}
+	}
+
+	.DetailsContainer {
+		padding: 20px;
+		flex-basis: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		gap: 20px;
+
+		.Details {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			h5 {
+				font-weight: 500;
+				margin-bottom: 0px;
+			}
+
+			.Description {
+				line-height: 2.5;
+			}
+
+			.Price {
+				font-weight: 500;
+			}
+		}
+	}
+}

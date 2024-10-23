@@ -14,7 +14,6 @@
 	}
 	.Products {
 		flex-basis: 80%;
-		border: 1px solid black;
 		height: 100%;
 		padding: 10px;
 		align-content: center;

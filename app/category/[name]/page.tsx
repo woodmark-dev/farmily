@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import fetcher from "@/app/lib/fetcher";
@@ -68,17 +69,25 @@ export default function Category({ params }: { params: { name: string } }) {
 
 	return (
 		<div className="CategoryPage">
-			{snapshot.context.products.map((item) => (
-				<div key={item.id} className="ProductContainer">
-					<Link href={`/product/${item.id}`} className="ImageContainer">
+			{snapshot.context.products.map((item: any) => (
+				<Link
+					href={`/product/${item.id}`}
+					key={item.id}
+					className="ProductContainer"
+				>
+					<div className="ImageContainer">
 						<Image
 							width={1000}
 							height={1000}
 							alt={item.title}
 							src={item.image}
 						/>
-					</Link>
-				</div>
+					</div>
+					<div className="Overlay">
+						<h5>{item.title}</h5>
+						<p>{item.price}</p>
+					</div>
+				</Link>
 			))}
 		</div>
 	);

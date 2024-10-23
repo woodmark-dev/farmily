@@ -1,23 +1,36 @@
 .CategoryPage {
 	display: flex;
 	flex-flow: row wrap;
+	justify-content: center;
+	gap: 20px;
 	width: 100%;
 	height: 100%;
+
 	.ProductContainer {
-		flex-basis: 50%;
+		flex-basis: 45%;
 		height: 100%;
+		border: 1px solid var(--primary-color);
+		border-radius: 20px;
+
+		display: grid;
+		grid-template-areas: "a";
 
 		.ImageContainer {
-			display: block;
+			grid-area: a;
 			padding: 10px;
 			width: 100%;
 			height: 40vh;
 			text-align: center;
-			border: 1px solid black;
 			img {
 				width: unset;
-				height: 70%;
+				height: 100%;
 			}
+		}
+
+		.Overlay {
+			grid-area: a;
+			background-color: rgba(0, 0, 0, 0.336);
+			border-radius: 20px;
 		}
 	}
 }
