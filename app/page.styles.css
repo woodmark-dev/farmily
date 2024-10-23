@@ -1,0 +1,29 @@
+.HomePage {
+	align-content: center;
+	padding: 20px;
+	height: 100vh;
+	background-color: var(--black);
+	.Categories {
+		display: flex;
+		justify-content: center;
+		flex-flow: row wrap;
+		gap: 20px;
+
+		.CategoryContainer {
+			height: 40vh;
+			flex-basis: 45%;
+
+			.ImageContainer {
+				background-color: var(--white);
+				border-radius: 20px;
+				padding: 20px;
+				text-align: center;
+				height: 100%;
+				img {
+					height: 100%;
+					width: unset;
+				}
+			}
+		}
+	}
+}
