@@ -1,0 +1,22 @@
+.CategoryLayout {
+	padding: 20px;
+	width: 100vw;
+	max-width: 100vw;
+	height: 100vh;
+	display: flex;
+	overflow-x: hidden;
+
+	.SideMenu {
+		padding: 10px;
+		flex-basis: 20%;
+		border: 1px solid black;
+		height: 100%;
+	}
+	.Products {
+		flex-basis: 80%;
+		border: 1px solid black;
+		height: 100%;
+		padding: 10px;
+		align-content: center;
+	}
+}
