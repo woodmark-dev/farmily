@@ -32,23 +32,19 @@ const productFetcher = setup({}).createMachine({
 const cartLogic = setup({
 	actions: {
 		addToCart: assign({
-			cart: ({ event, context }) => {
+			cart: ({ event, context }: any) => {
 				const product = event.value;
 				const itemInCart = context.cart.find(
 					(item: any) => item.id == product.id
 				);
 				if (itemInCart) {
-					const cartWithoutProduct = context.cart.filter(
-						(item: any) => item.id != itemInCart.id
-					);
-					const productWithCountIncrease = {
-						...itemInCart,
-						count: itemInCart.count + 1,
-					};
-					return cartWithoutProduct.concat(productWithCountIncrease);
+					return context.cart.map((product: any) => {
+						if (product.id === itemInCart.id)
+							return { ...product, count: product.count + 1 };
+						return product;
+					});
 				}
-				const productWithCount = { ...product, count: 1 };
-				return context.cart.concat(productWithCount);
+				return context.cart.concat({ ...event.value, count: 1 });
 			},
 		}),
 		reduceFromCart: assign({
@@ -66,15 +62,16 @@ const cartLogic = setup({
 					);
 					return cartWithoutProduct;
 				}
-				const cartWithoutProduct = context.cart.filter(
-					(item: any) => item.id != itemInCart.id
-				);
-				const productWithCountDecrease = {
-					...itemInCart,
-					count: itemInCart.count - 1,
-				};
-				return cartWithoutProduct.concat(productWithCountDecrease);
+				return context.cart.map((product: any) => {
+					if (product.id === itemInCart.id)
+						return { ...product, count: product.count - 1 };
+					return product;
+				});
 			},
+		}),
+		removeFromCart: assign({
+			cart: ({ context, event }: any) =>
+				context.cart.filter((item: any) => item.id != event.value.id),
 		}),
 	},
 }).createMachine({
@@ -87,6 +84,9 @@ const cartLogic = setup({
 		},
 		REDUCE_FROM_CART: {
 			actions: ["reduceFromCart"],
+		},
+		REMOVE_FROM_CART: {
+			actions: ["removeFromCart"],
 		},
 	},
 });

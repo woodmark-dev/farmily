@@ -7,6 +7,7 @@ import CartButtons from "../cart-buttons/cart-buttons.component";
 
 export default function ProductCard({ item }: { item: any }) {
 	const router = useRouter();
+
 	return (
 		<div
 			onClick={() => router.push(`/product/${item.id}`)}

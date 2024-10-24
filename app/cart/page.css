@@ -1,0 +1,36 @@
+.CartPage {
+	.CartProductsContainer {
+		display: flex;
+		flex-flow: row wrap;
+		width: 100%;
+
+		.CartProductContainer {
+			border: 1px solid black;
+			flex-basis: 50%;
+			display: flex;
+			background-color: white;
+			padding: 20px;
+			position: relative;
+
+			.ImageContainer {
+				height: 40vh;
+				img {
+					width: unset;
+					height: 80%;
+				}
+			}
+			.otherDetails {
+				flex-grow: 1;
+				padding: 20px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+			.DeleteButton {
+				position: absolute;
+				right: 20px;
+				cursor: pointer;
+			}
+		}
+	}
+}

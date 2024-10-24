@@ -5,11 +5,16 @@ import "./header.styles.css";
 import CartIcon from "../cart-icon/cart-icon";
 import { useSelector } from "@xstate/react";
 import { cartActor } from "@/app/lib/actors";
+import Logo from "../logo/logo";
 export default function Header() {
 	const cartSelector: any = useSelector(cartActor, (s) => s);
 	return (
 		<div className="Header">
-			<div className="Logo">Logo</div>
+			<div className="Logo">
+				<Link href="/">
+					<Logo />
+				</Link>
+			</div>
 			<nav className="NavLinks">
 				<ul>
 					<li>
