@@ -2,4 +2,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	.Count {
+		color: var(--primary-color);
+		font-weight: 400;
+		font-size: var(--h5);
+	}
 }

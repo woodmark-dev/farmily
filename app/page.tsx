@@ -2,38 +2,79 @@
 // import Image from "next/image";
 // import styles from "./page.module.css";
 "use client";
-import { useSelector } from "@xstate/react";
+import { assign, fromPromise, setup } from "xstate";
 import "./page.styles.css";
-import { productFetcherActor } from "./lib/actors";
-import Image from "next/image";
-import Link from "next/link";
+import { useActor } from "@xstate/react";
+import fetcher from "./lib/fetcher";
+import { useEffect } from "react";
+import ProductCard from "./components/product-card/product-card.component";
+
+const productsLogic = setup({
+	actors: {
+		fetchProducts: fromPromise(
+			async () => await fetcher("https://fakestoreapi.com/products")
+		),
+	},
+	actions: {
+		setCategoryName: assign({
+			categoryName: ({ event }) => event.value,
+		}),
+		setProducts: assign({
+			products: ({ event }) => event.output,
+		}),
+	},
+}).createMachine({
+	context: {
+		products: [],
+	},
+	initial: "idle",
+	states: {
+		idle: {
+			on: {
+				INITIALIZE: {
+					target: "fetchingProducts",
+				},
+			},
+		},
+		fetchingProducts: {
+			invoke: {
+				src: "fetchProducts",
+				onDone: {
+					actions: ["setProducts"],
+					target: "live",
+				},
+				onError: {
+					actions: ({ event }) => console.log(event.error),
+					target: "error",
+				},
+			},
+		},
+		live: {},
+		error: {},
+	},
+});
 
 export default function HomePage() {
-	const productFetcherSnapshot: any = useSelector(
-		productFetcherActor,
-		(s) => s
-	);
+	const [snapshot, send] = useActor(productsLogic);
 
-	return (
-		<div className="HomePage">
-			<div className="Categories">
-				{productFetcherSnapshot.context.categories.map((item: any) => (
-					<Link
-						href={`/category/${item.name}`}
-						key={item.name}
-						className="CategoryContainer"
-					>
-						<div className="ImageContainer">
-							<Image
-								width={1000}
-								height={1000}
-								alt={item.name}
-								src={item.imgCover}
-							/>
-						</div>
-					</Link>
-				))}
+	useEffect(() => {
+		send({ type: "INITIALIZE" });
+	}, [send]);
+
+	if (snapshot.value == "fetchingProducts") {
+		return <div>...loading</div>;
+	}
+
+	if (snapshot.value == "live") {
+		return (
+			<div className="HomePage">
+				<h3>all products</h3>
+				<div className="ProductsContainer">
+					{snapshot.context.products.map((item: any) => (
+						<ProductCard item={item} key={item.id} />
+					))}
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }

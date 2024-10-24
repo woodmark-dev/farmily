@@ -1,36 +1,10 @@
 .CategoryPage {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-	gap: 20px;
-	width: 100%;
-	height: 100%;
-
-	.ProductContainer {
-		flex-basis: 45%;
+	.CategoryContainer {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		gap: 20px;
+		width: 100%;
 		height: 100%;
-		border: 1px solid var(--primary-color);
-		border-radius: 20px;
-
-		display: grid;
-		grid-template-areas: "a";
-
-		.ImageContainer {
-			grid-area: a;
-			padding: 10px;
-			width: 100%;
-			height: 40vh;
-			text-align: center;
-			img {
-				width: unset;
-				height: 100%;
-			}
-		}
-
-		.Overlay {
-			grid-area: a;
-			background-color: rgba(0, 0, 0, 0.336);
-			border-radius: 20px;
-		}
 	}
 }

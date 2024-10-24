@@ -1,0 +1,64 @@
+.CategoriesPage {
+	align-content: center;
+	padding: 20px;
+	min-height: 100%;
+
+	.Categories {
+		display: flex;
+		justify-content: center;
+		flex-flow: row wrap;
+		gap: 20px;
+
+		.CategoryContainer {
+			height: 40vh;
+			flex-basis: 45%;
+			position: relative;
+
+			.Name {
+				color: var(--primary-color);
+				position: absolute;
+				top: 2%;
+				right: 5%;
+				font-weight: 500;
+			}
+
+			.Tag {
+				position: absolute;
+				top: 15%;
+				right: 5%;
+				font-weight: 500;
+				color: rgba(255, 0, 0, 0.815);
+				font-size: 0.8rem;
+				opacity: 0;
+				transition: all 3s;
+			}
+
+			.ImageContainer {
+				background-color: var(--white);
+				border-radius: 20px;
+				padding: 20px;
+				text-align: center;
+				height: 100%;
+				overflow: hidden;
+				img {
+					height: 100%;
+					width: unset;
+					transition: all 10s;
+				}
+			}
+
+			&:hover {
+				.Tag {
+					opacity: 1;
+					transform: scale(1.6);
+				}
+
+				.ImageContainer {
+					img {
+						transform: scale(1.7);
+					}
+				}
+			}
+		}
+	}
+}

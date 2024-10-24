@@ -68,9 +68,10 @@ export default function CartButtons({ product }: { product: any }) {
 		return (
 			<Button
 				type="primary"
-				handleClick={() =>
-					cartActor.send({ type: "ADD_TO_CART", value: product })
-				}
+				handleClick={(e: any) => {
+					e.stopPropagation();
+					cartActor.send({ type: "ADD_TO_CART", value: product });
+				}}
 				title="add to cart"
 			/>
 		);
@@ -80,19 +81,21 @@ export default function CartButtons({ product }: { product: any }) {
 		<div className="CartButtons">
 			<Button
 				type="cart"
-				handleClick={() =>
-					cartActor.send({ type: "ADD_TO_CART", value: product })
-				}
+				handleClick={(e: any) => {
+					e.stopPropagation();
+					cartActor.send({ type: "ADD_TO_CART", value: product });
+				}}
 				title="+"
 			/>
 
-			<p>{snapshot.context.product.count}</p>
+			<p className="Count">{snapshot.context.product.count}</p>
 
 			<Button
 				type="cart"
-				handleClick={() =>
-					cartActor.send({ type: "REDUCE_FROM_CART", value: product })
-				}
+				handleClick={(e: any) => {
+					e.stopPropagation();
+					cartActor.send({ type: "REDUCE_FROM_CART", value: product });
+				}}
 				title="-"
 			/>
 		</div>

@@ -6,8 +6,7 @@ import { useActor } from "@xstate/react";
 import { useEffect } from "react";
 import { assign, fromPromise, setup } from "xstate";
 import "./page.css";
-import Image from "next/image";
-import Link from "next/link";
+import ProductCard from "@/app/components/product-card/product-card.component";
 
 const categoryLogic = setup({
 	actors: {
@@ -45,7 +44,7 @@ const categoryLogic = setup({
 				input: ({ context }) => context.categoryName,
 				onDone: {
 					actions: ["setProducts"],
-					target: "idle",
+					target: "live",
 				},
 				onError: {
 					actions: ({ event }) => console.log(event.error),
@@ -53,6 +52,7 @@ const categoryLogic = setup({
 				},
 			},
 		},
+		live: {},
 	},
 });
 
@@ -67,28 +67,16 @@ export default function Category({ params }: { params: { name: string } }) {
 		return <div>...Loading</div>;
 	}
 
-	return (
-		<div className="CategoryPage">
-			{snapshot.context.products.map((item: any) => (
-				<Link
-					href={`/product/${item.id}`}
-					key={item.id}
-					className="ProductContainer"
-				>
-					<div className="ImageContainer">
-						<Image
-							width={1000}
-							height={1000}
-							alt={item.title}
-							src={item.image}
-						/>
-					</div>
-					<div className="Overlay">
-						<h5>{item.title}</h5>
-						<p>{item.price}</p>
-					</div>
-				</Link>
-			))}
-		</div>
-	);
+	if (snapshot.value == "live") {
+		return (
+			<div className="CategoryPage">
+				<h3>{snapshot.context.products[0].category}</h3>
+				<div className="CategoryContainer">
+					{snapshot.context.products.map((item: any) => (
+						<ProductCard item={item} key={item.id} />
+					))}
+				</div>
+			</div>
+		);
+	}
 }

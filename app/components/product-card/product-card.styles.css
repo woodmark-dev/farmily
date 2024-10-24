@@ -1,0 +1,84 @@
+.ProductContainer {
+	flex-basis: 30%;
+	border: 1px solid var(--primary-color);
+	border-radius: 20px;
+	cursor: pointer;
+	background-color: white;
+	box-shadow: rgba(255, 255, 255, 0.767) 0px 5px 15px;
+
+	display: grid;
+	grid-template-areas: "a";
+
+	.ImageContainer {
+		grid-area: a;
+		padding: 10px;
+		width: 100%;
+		height: 40vh;
+		text-align: center;
+		overflow: hidden;
+		img {
+			width: unset;
+			height: 100%;
+			transition: all 10s;
+		}
+	}
+
+	.Overlay {
+		grid-area: a;
+		border-radius: 20px;
+		position: relative;
+
+		.DetailContainer {
+			background-color: rgba(0, 0, 0, 0.719);
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			width: 100%;
+			position: absolute;
+			bottom: 0px;
+			padding: 10px;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			transition: all 0.4s;
+			.Title {
+				margin: 0px;
+				font-weight: 500;
+				transition: all 0.4s;
+				color: white;
+			}
+
+			.Description {
+				font-weight: 400;
+				transition: all 0.4s 0.2s;
+				color: white;
+			}
+		}
+	}
+
+	&:hover {
+		.ImageContainer {
+			img {
+				transform: scale(1.7);
+			}
+		}
+		.Overlay {
+			.DetailContainer {
+				background-color: transparent;
+
+				button {
+					background-color: transparent;
+				}
+
+				.Title {
+					transform: translateY(20%);
+					opacity: 0;
+				}
+
+				.Description {
+					transform: translateX(-20px);
+					opacity: 0;
+				}
+			}
+		}
+	}
+}
