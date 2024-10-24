@@ -1,0 +1,39 @@
+.Header {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.Logo {
+	}
+
+	.NavLinks {
+		ul {
+			list-style: none;
+			display: flex;
+			gap: 20px;
+			margin: 0px;
+			padding: 0px;
+
+			li {
+				&:hover {
+					color: var(--primary-color);
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	.Icons {
+		/* position: relative; */
+		.Cart {
+			.Number {
+				position: absolute;
+				top: 0px;
+				right: 12px;
+			}
+		}
+	}
+}

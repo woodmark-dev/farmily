@@ -1,4 +1,8 @@
 .CategoryPage {
+	.SelectContainer {
+		width: 20%;
+		margin-bottom: 20px;
+	}
 	.CategoryContainer {
 		display: flex;
 		flex-flow: row wrap;

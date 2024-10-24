@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { assign, fromPromise, setup } from "xstate";
 import "./page.css";
 import ProductCard from "@/app/components/product-card/product-card.component";
+import Select from "react-select";
 
 const categoryLogic = setup({
 	actors: {
@@ -21,6 +22,14 @@ const categoryLogic = setup({
 		}),
 		setProducts: assign({
 			products: ({ event }) => event.output,
+		}),
+		sortForLeastPrice: assign({
+			products: ({ context }) =>
+				context.products.sort((a: any, b: any) => a.price - b.price),
+		}),
+		sortForMostPriced: assign({
+			products: ({ context }) =>
+				context.products.sort((a: any, b: any) => b.price - a.price),
 		}),
 	},
 }).createMachine({
@@ -52,9 +61,48 @@ const categoryLogic = setup({
 				},
 			},
 		},
-		live: {},
+		live: {
+			on: {
+				LEAST_PRICE: {
+					actions: ["sortForLeastPrice"],
+					target: "leastPriced",
+				},
+				MOST_PRICED: {
+					target: "mostPriced",
+					actions: ["sortForMostPriced"],
+				},
+			},
+		},
+		leastPriced: {
+			on: {
+				UNSORTED: {
+					target: "fetchingProducts",
+				},
+				MOST_PRICED: {
+					target: "mostPriced",
+					actions: ["sortForMostPriced"],
+				},
+			},
+		},
+		mostPriced: {
+			on: {
+				UNSORTED: {
+					target: "fetchingProducts",
+				},
+				LEAST_PRICE: {
+					actions: ["sortForLeastPrice"],
+					target: "leastPriced",
+				},
+			},
+		},
 	},
 });
+
+const options = [
+	{ value: "UNSORTED", label: "Unsorted" },
+	{ value: "LEAST_PRICE", label: "Least Priced" },
+	{ value: "MOST_PRICED", label: "Most Priced" },
+];
 
 export default function Category({ params }: { params: { name: string } }) {
 	const [snapshot, send] = useActor(categoryLogic);
@@ -67,10 +115,21 @@ export default function Category({ params }: { params: { name: string } }) {
 		return <div>...Loading</div>;
 	}
 
-	if (snapshot.value == "live") {
+	if (
+		snapshot.value == "live" ||
+		snapshot.value == "leastPriced" ||
+		snapshot.value == "mostPriced"
+	) {
 		return (
 			<div className="CategoryPage">
 				<h3>{snapshot.context.products[0].category}</h3>
+				<div className="SelectContainer">
+					<Select
+						options={options}
+						defaultValue={options[0]}
+						onChange={(e) => send({ type: e?.value || "" })}
+					/>
+				</div>
 				<div className="CategoryContainer">
 					{snapshot.context.products.map((item: any) => (
 						<ProductCard item={item} key={item.id} />
