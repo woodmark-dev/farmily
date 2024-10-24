@@ -1,0 +1,18 @@
+name: CI/CD workflow on farmily
+on:
+  push:
+    branches:
+      - master
+jobs:
+  run-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependences
+        run: npm i
+
+      - name: Lint code
+        run: npm run lint
