@@ -23,4 +23,11 @@
 		background-color: white;
 		color: var(--primary-color);
 	}
+
+	@media (max-width: 500px) {
+		&:hover {
+			background-color: var(--primary-color);
+			color: white;
+		}
+	}
 }

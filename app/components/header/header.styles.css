@@ -32,7 +32,18 @@
 			.Number {
 				position: absolute;
 				top: 0px;
-				right: 12px;
+				right: 7px;
+			}
+		}
+	}
+
+	@media (max-width: 500px) {
+		.NavLinks {
+			ul {
+				gap: 10px;
+				li {
+					font-size: calc(var(--base-size) * 0.8);
+				}
 			}
 		}
 	}

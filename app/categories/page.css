@@ -61,4 +61,31 @@
 			}
 		}
 	}
+
+	@media (max-width: 500px) {
+		h3 {
+			font-size: var(--h5);
+		}
+
+		.Categories {
+			.CategoryContainer {
+				flex-basis: 100%;
+
+				.Name {
+					top: 80%;
+					right: 5%;
+				}
+
+				.Tag {
+					display: none;
+				}
+
+				.ImageContainer {
+					img {
+						height: 80%;
+					}
+				}
+			}
+		}
+	}
 }

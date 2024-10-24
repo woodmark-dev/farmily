@@ -81,4 +81,55 @@
 			}
 		}
 	}
+
+	@media (max-width: 500px) {
+		flex-basis: 100%;
+
+		.ImageContainer {
+			img {
+				height: 50%;
+			}
+		}
+
+		.Overlay {
+			.DetailContainer {
+				background-color: transparent;
+				.Title {
+					color: black;
+					font-size: calc(var(--base-size) * 0.7);
+					font-weight: 300;
+				}
+				.Description {
+					color: black;
+				}
+			}
+		}
+
+		&:hover {
+			.ImageContainer {
+				img {
+					transform: none;
+				}
+			}
+			.Overlay {
+				.DetailContainer {
+					background-color: inherit;
+
+					button {
+						background-color: var(--primary-color);
+					}
+
+					.Title {
+						transform: none;
+						opacity: 1;
+					}
+
+					.Description {
+						transform: none;
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
 }

@@ -33,4 +33,37 @@
 			}
 		}
 	}
+
+	@media (max-width: 500px) {
+		h3 {
+			font-size: var(--h5);
+		}
+
+		.CartProductsContainer {
+			.CartProductContainer {
+				padding: 10px;
+				flex-basis: 100%;
+
+				.ImageContainer {
+					flex-basis: 40%;
+					align-items: center;
+					align-content: center;
+
+					img {
+						height: 60%;
+					}
+				}
+				.otherDetails {
+					flex-basis: 60%;
+					flex-grow: 0;
+					justify-content: space-around;
+
+					.Description {
+						line-height: 1.5;
+						font-size: calc(var(--base-size) * 0.8);
+					}
+				}
+			}
+		}
+	}
 }

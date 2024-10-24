@@ -42,4 +42,23 @@
 			}
 		}
 	}
+
+	@media (max-width: 500px) {
+		flex-direction: column;
+		padding: 10px;
+
+		.DetailsContainer {
+			padding: 10px;
+			padding-top: 0%;
+			gap: 10px;
+
+			.Details {
+				gap: 10px;
+
+				.Description {
+					line-height: 1.5;
+				}
+			}
+		}
+	}
 }

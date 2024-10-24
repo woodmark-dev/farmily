@@ -33,7 +33,7 @@ export default function CartPage() {
 							/>
 						</div>
 						<div className="otherDetails">
-							<p>{item.title}</p>
+							<p className="Description">{item.title}</p>
 							<p>₦{item.price}</p>
 							<CartButtons product={item} />
 						</div>
