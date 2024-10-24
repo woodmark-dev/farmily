@@ -7,6 +7,7 @@ import { useActor } from "@xstate/react";
 import fetcher from "@/app/lib/fetcher";
 import Image from "next/image";
 import CartButtons from "@/app/components/cart-buttons/cart-buttons.component";
+import LoadingSpinner from "@/app/components/loading-spinner/loading-spinner";
 
 const productLogic = setup({
 	actors: {
@@ -47,12 +48,12 @@ const productLogic = setup({
 					target: "live",
 				},
 				onError: {
-					actions: ({ event }) => console.log(event.error),
-					target: "idle",
+					target: "error",
 				},
 			},
 		},
 		live: {},
+		error: {},
 	},
 });
 
@@ -64,7 +65,15 @@ export default function Product({ params }: { params: { id: number } }) {
 	}, [params.id, send]);
 
 	if (snapshot.value == "fetchingProduct") {
-		return <div>...Loading</div>;
+		return <LoadingSpinner />;
+	}
+
+	if (snapshot.value == "error") {
+		return (
+			<div>
+				<p>Something went wrong. Please refresh page</p>
+			</div>
+		);
 	}
 
 	if (snapshot.value == "live") {

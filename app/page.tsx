@@ -8,6 +8,7 @@ import { useActor } from "@xstate/react";
 import fetcher from "./lib/fetcher";
 import { useEffect } from "react";
 import ProductCard from "./components/product-card/product-card.component";
+import LoadingSpinner from "./components/loading-spinner/loading-spinner";
 
 const productsLogic = setup({
 	actors: {
@@ -44,7 +45,6 @@ const productsLogic = setup({
 					target: "live",
 				},
 				onError: {
-					actions: ({ event }) => console.log(event.error),
 					target: "error",
 				},
 			},
@@ -62,7 +62,15 @@ export default function HomePage() {
 	}, [send]);
 
 	if (snapshot.value == "fetchingProducts") {
-		return <div>...loading</div>;
+		return <LoadingSpinner />;
+	}
+
+	if (snapshot.value == "error") {
+		return (
+			<div>
+				<p>Something went wrong. Please refresh page</p>
+			</div>
+		);
 	}
 
 	if (snapshot.value == "live") {

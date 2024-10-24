@@ -8,6 +8,7 @@ import { assign, fromPromise, setup } from "xstate";
 import "./page.css";
 import ProductCard from "@/app/components/product-card/product-card.component";
 import Select from "react-select";
+import LoadingSpinner from "@/app/components/loading-spinner/loading-spinner";
 
 const categoryLogic = setup({
 	actors: {
@@ -56,11 +57,11 @@ const categoryLogic = setup({
 					target: "live",
 				},
 				onError: {
-					actions: ({ event }) => console.log(event.error),
-					target: "idle",
+					target: "error",
 				},
 			},
 		},
+		error: {},
 		live: {
 			on: {
 				LEAST_PRICE: {
@@ -112,7 +113,15 @@ export default function Category({ params }: { params: { name: string } }) {
 	}, [params.name, send]);
 
 	if (snapshot.value == "fetchingProducts") {
-		return <div>...Loading</div>;
+		return <LoadingSpinner />;
+	}
+
+	if (snapshot.value == "error") {
+		return (
+			<div>
+				<p>Something went wrong. Please refresh page</p>
+			</div>
+		);
 	}
 
 	if (
